@@ -5,8 +5,8 @@ import firebase from 'firebase'
 
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp({
-    apiKey: "AIzaSyBuJRqwh3Tn6X4UvRAEzfKOIZz82G16Y5s",
-    authDomain: "dutchx-stats-2.firebaseapp.com",
+    apiKey: process.env.CREATE_REACT_1,
+    authDomain: process.env.CREATE_REACT_2,
     databaseURL: "https://dutchx-stats-2.firebaseio.com"
   });
 

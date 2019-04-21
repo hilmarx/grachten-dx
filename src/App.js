@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './dutch.png';
 import './App.css';
 import Test from './components/Test'
 import getStats from './getStats'
+import fetchToken from './fetchToken'
 import base from './base'
+import CustomizedTable from './components/CustomizedTable'
 
 // Chart test
 import Totalvolume from './components/Totalvolume'
@@ -14,17 +16,19 @@ class App extends Component {
     super(props);
     this.state = {
       totalDailyVolumes: {},
-      array: []
+      array: [],
+      tokenPairs: []
     };
+
     base.fetch('stats', {
       context: this,
       asArray: true,
       then(data){
-        console.log("CMON BABY")
-        console.log(data);
+        console.log(data)
         this.setState({
-          totalDailyVolumes: data[1],
-          array: data[0]
+          array: data[0],
+          tokenPairs: data[1],
+          totalDailyVolumes: data[2]
         })
       }
     });
@@ -33,27 +37,42 @@ class App extends Component {
   }
 
   async componentDidMount() {
+
+    // +++++++++
     
     const totalDailyVolumes = await getStats();
-    const array = []
+    
+    const array1 = []
     Object.keys(totalDailyVolumes).forEach(key => {
           let hash = { name: key }
           Object.keys(totalDailyVolumes[key]).forEach(key2 => {
             let symbol = this.symbol(key2)
-            hash[symbol] = totalDailyVolumes[key][key2] 
+            hash[symbol] = parseFloat(totalDailyVolumes[key][key2]).toFixed(2)
           })
-          array.push(hash)
+          array1.push(hash)
       })
-    console.log(array)
+    const array2 = array1.slice().reverse()
+    console.log(array2)
+
+    // ##########
+    const tokenPairs = await fetchToken();
 
     base.post('stats', {
-      data: { totalDailyVolumes, array },
+      data: { totalDailyVolumes, array: array2, tokenPairs },
       then(err) {
         if (!err) {
           console.log("seems to work...")
         }
       }
     });
+
+    this.setState({
+      array: array2,
+      tokenPairs: tokenPairs,
+      totalDailyVolumes: totalDailyVolumes
+    })
+    
+  
   };
 
   componentWillUnmount() {
@@ -88,13 +107,16 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-        <h1>GrachtenDX - DX Statistics</h1>
-        <h3>Daily DutchX Volumes</h3>
+        <h2> 🇳🇱 DutchX Stats 🇳🇱 </h2>
+        <h4>Daily DutchX Volumes (past 60 days)</h4>
         <Totalvolume array={this.state.array}></Totalvolume>
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            by <code>hilmarx</code>
-          </p>
+        <h4>Individual Token Pairs</h4>
+        <CustomizedTable tp={this.state.tokenPairs}></CustomizedTable>
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          <code> <a href="https://github.com/hilmarx" target="_blank" id="hx" >by hilmarx</a> </code>
+        </p>
+        
         </header>
       </div>
     );

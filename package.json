@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
     "ethers": "^4.0.27",
     "firebase": "^5.7.0",
     "re-base": "4.0.0",
@@ -12,6 +14,7 @@
     "recharts": "^1.5.0"
   },
   "scripts": {
+    "now-build": "react-scripts build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

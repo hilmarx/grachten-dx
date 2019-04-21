@@ -25,8 +25,8 @@ const getStats = async () => {
     const timestamp = (newDate.getTime() / 1000).toFixed(0)
     
     
-    // Calc last 14 dates and store in hashTable
-    const days = 5
+    // Calc last x dates and store in hashTable
+    const days = 60
     let i = 1
     
     const timeStamps = {}
@@ -62,9 +62,12 @@ const getStats = async () => {
         const sellToken = '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2'
         let url2 = `https://dutchx.d.exchange/api/v1/auctions/cleared?fromDate=${previousApiDate}&toDate=${previousApiDate}`
 
+        // for frontend readability
+        let convPrevDate = `${day}-${month}`
+
         let response = await fetch(url2)
         let data = await response.json();
-        apiDates[previousApiDate] = data.data
+        apiDates[convPrevDate] = data.data
        
         
         // add timestmap to hash
@@ -131,31 +134,5 @@ const getStats = async () => {
 
  export default getStats;
 
-
-//  const getTokenPairs = async () => {
-//     //Get all token pairs
-
-//     let apiCall = 'tokens'
-//     let url = `https://dutchx.d.exchange/api/v1/${apiCall}`
-
-//     const tokenPairs = {}
-//     let i = 0
-//     fetch(url)
-//     .then(function(response) {
-//         return response.json();
-//     })
-//     .then(function(myJson) {
-//         const result = myJson.data
-//         for (i in result) {
-//             tokenPairs[result[i].symbol] = {
-//                 address: result[i].address,
-//                 name: result[i].name,
-//                 decimal: result[i].decimals
-//             }
-//         }
-//     });
-//     console.log(tokenPairs)
-//     return tokenPairs
-//  }
 
    

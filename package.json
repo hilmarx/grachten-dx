@@ -7,16 +7,18 @@
     "@material-ui/icons": "^3.0.2",
     "ethers": "^4.0.27",
     "firebase": "^5.7.0",
+    "now": "^15.0.6",
     "re-base": "4.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8",
-    "recharts": "^1.5.0"
+    "recharts": "^1.5.0",
+    "serve": "^11.0.0"
   },
   "scripts": {
-    "now-build": "react-scripts build",
-    "start": "react-scripts start",
+    "start": "serve --single ./build",
     "build": "react-scripts build",
+    "now-build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

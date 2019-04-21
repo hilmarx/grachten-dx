@@ -108,7 +108,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
         <h2> 🇳🇱 DutchX Stats 🇳🇱 </h2>
-        <h4>Daily DutchX Volumes (past 60 days)</h4>
+        <h4>Daily DutchX Volumes in ETH (past 50 days)</h4>
         <Totalvolume array={this.state.array}></Totalvolume>
         <h4>Individual Token Pairs</h4>
         <CustomizedTable tp={this.state.tokenPairs}></CustomizedTable>

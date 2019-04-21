@@ -26,7 +26,7 @@ const getStats = async () => {
     
     
     // Calc last x dates and store in hashTable
-    const days = 60
+    const days = 50
     let i = 1
     
     const timeStamps = {}
